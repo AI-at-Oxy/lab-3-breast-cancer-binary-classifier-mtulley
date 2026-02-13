@@ -10,11 +10,13 @@ import torch
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
+import math
 
 
 # =============================================================================
 # PART 1: Implement the Core Functions
 # =============================================================================
+
 
 def sigmoid(z):
     """
@@ -28,7 +30,7 @@ def sigmoid(z):
     Returns:
         scalar output in (0, 1)
     """
-    raise NotImplementedError("TODO: implement sigmoid")
+    return 1 / (1 + (math.e)**(-z))
 
 
 def forward(x, w, b):
