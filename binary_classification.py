@@ -30,7 +30,7 @@ def sigmoid(z):
     Returns:
         scalar output in (0, 1)
     """
-    return 1 / (1 + (math.e)**(-z))
+    return 1 / (1 + math.e**(-z))
 
 
 def forward(x, w, b):
@@ -49,7 +49,7 @@ def forward(x, w, b):
         scalar prediction in (0, 1)
     """
     z = torch.dot(w, x) + b # compute z = w · x + b
-    y_hat = sigmoid(z)  # apply sigmoid to z
+    return sigmoid(z)  # apply sigmoid to z
 
 
 def compute_loss(y, y_hat):
@@ -163,17 +163,17 @@ def train(X_train, y_train, alpha=0.01, n_epochs=100, verbose=True):
             y_i = y_train[i]
             
             # Forward pass: compute prediction for this sample
-            y_hat = None  # TODO: call forward()
+            y_hat = forward(x_i, w, b) # call forward()
 
             # Compute loss
             epoch_loss += compute_loss(y_i, y_hat).item()
 
             # Compute gradients
-            dw, db = None, None  # TODO: call compute_gradients()
+            dw, db = compute_gradients(x_i, y_i, y_hat) # call compute_gradients()
 
             # Update parameters using gradient descent
-            w = None  # TODO: update w
-            b = None  # TODO: update b
+            w = w - dw * alpha # update w
+            b = b - db * alpha # update b
         
         avg_loss = epoch_loss / len(y_train)
         losses.append(avg_loss)
