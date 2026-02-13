@@ -65,7 +65,8 @@ def compute_loss(y, y_hat):
     Returns:
         scalar loss
     """
-    raise NotImplementedError("TODO: implement compute_loss")
+
+    return (1/2) * ((y_hat - y)**2)
 
 
 def compute_gradients(x, y, y_hat):
