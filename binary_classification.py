@@ -65,7 +65,6 @@ def compute_loss(y, y_hat):
     Returns:
         scalar loss
     """
-
     return (1/2) * ((y_hat - y)**2)
 
 
@@ -89,14 +88,14 @@ def compute_gradients(x, y, y_hat):
         dw: (n,) gradient for weights
         db: scalar gradient for bias
     """
-    error = None  # TODO: compute error = ŷ - y
-    sigmoid_deriv = None  # TODO: compute sigmoid derivative = ŷ(1 - ŷ)
-    delta = None  # TODO: compute δ = error × sigmoid_deriv
+    error = y_hat - y # compute error = ŷ - y
+    sigmoid_deriv = y_hat * (1 - y_hat) # compute sigmoid derivative = ŷ(1 - ŷ)
+    delta = error * sigmoid_deriv # compute δ = error × sigmoid_deriv
 
-    dw = None  # TODO: compute ∂L/∂w = δ × x
-    db = None  # TODO: compute ∂L/∂b = δ
+    dw = delta * x # compute ∂L/∂w = δ × x
+    db = delta # compute ∂L/∂b = δ
 
-    raise NotImplementedError("TODO: implement compute_gradients")
+    return dw, db
 
 
 # =============================================================================
