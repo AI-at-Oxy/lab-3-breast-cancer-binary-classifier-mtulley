@@ -1,0 +1,23 @@
+artifact_path: /home/mftul/dev/DL-lab/lab-3-breast-cancer-binary-classifier-mtulley/mlruns/1/models/m-b10e243da7a94fd2991bfaad01bda70a/artifacts
+flavors:
+  python_function:
+    config:
+      device: null
+    data: data
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.pytorch
+    pickle_module_name: mlflow.pytorch.pickle_module
+    python_version: 3.10.19
+  pytorch:
+    code: null
+    model_data: data
+    pytorch_version: 2.10.0+cu130
+mlflow_version: 3.9.0
+model_id: m-b10e243da7a94fd2991bfaad01bda70a
+model_size_bytes: 4337
+model_uuid: m-b10e243da7a94fd2991bfaad01bda70a
+prompts: null
+run_id: dc24597a9dee4d138498e022d51939a6
+utc_time_created: '2026-02-18 19:32:31.924504'
