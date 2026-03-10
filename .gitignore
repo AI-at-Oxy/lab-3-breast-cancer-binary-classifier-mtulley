@@ -29,3 +29,7 @@ training_results.png
 .pytest_cache/
 .coverage
 htmlcov/
+
+# mlflow
+mlflow.db
+
