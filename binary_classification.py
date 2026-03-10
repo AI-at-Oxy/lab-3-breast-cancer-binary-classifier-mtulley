@@ -10,11 +10,13 @@ import torch
 import matplotlib.pyplot as plt
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
+import math
 
 
 # =============================================================================
 # PART 1: Implement the Core Functions
 # =============================================================================
+
 
 def sigmoid(z):
     """
@@ -28,7 +30,7 @@ def sigmoid(z):
     Returns:
         scalar output in (0, 1)
     """
-    raise NotImplementedError("TODO: implement sigmoid")
+    return 1 / (1 + math.e**(-z))
 
 
 def forward(x, w, b):
@@ -46,9 +48,8 @@ def forward(x, w, b):
     Returns:
         scalar prediction in (0, 1)
     """
-    z = None  # TODO: compute z = w · x + b
-    y_hat = None  # TODO: apply sigmoid to z
-    raise NotImplementedError("TODO: implement forward pass")
+    z = torch.dot(w, x) + b # compute z = w · x + b
+    return sigmoid(z)  # apply sigmoid to z
 
 
 def compute_loss(y, y_hat):
@@ -64,7 +65,7 @@ def compute_loss(y, y_hat):
     Returns:
         scalar loss
     """
-    raise NotImplementedError("TODO: implement compute_loss")
+    return (1/2) * ((y_hat - y)**2)
 
 
 def compute_gradients(x, y, y_hat):
@@ -87,14 +88,14 @@ def compute_gradients(x, y, y_hat):
         dw: (n,) gradient for weights
         db: scalar gradient for bias
     """
-    error = None  # TODO: compute error = ŷ - y
-    sigmoid_deriv = None  # TODO: compute sigmoid derivative = ŷ(1 - ŷ)
-    delta = None  # TODO: compute δ = error × sigmoid_deriv
+    error = y_hat - y # compute error = ŷ - y
+    sigmoid_deriv = y_hat * (1 - y_hat) # compute sigmoid derivative = ŷ(1 - ŷ)
+    delta = error * sigmoid_deriv # compute δ = error × sigmoid_deriv
 
-    dw = None  # TODO: compute ∂L/∂w = δ × x
-    db = None  # TODO: compute ∂L/∂b = δ
+    dw = delta * x # compute ∂L/∂w = δ × x
+    db = delta # compute ∂L/∂b = δ
 
-    raise NotImplementedError("TODO: implement compute_gradients")
+    return dw, db
 
 
 # =============================================================================
@@ -162,17 +163,17 @@ def train(X_train, y_train, alpha=0.01, n_epochs=100, verbose=True):
             y_i = y_train[i]
             
             # Forward pass: compute prediction for this sample
-            y_hat = None  # TODO: call forward()
+            y_hat = forward(x_i, w, b) # call forward()
 
             # Compute loss
             epoch_loss += compute_loss(y_i, y_hat).item()
 
             # Compute gradients
-            dw, db = None, None  # TODO: call compute_gradients()
+            dw, db = compute_gradients(x_i, y_i, y_hat) # call compute_gradients()
 
             # Update parameters using gradient descent
-            w = None  # TODO: update w
-            b = None  # TODO: update b
+            w = w - dw * alpha # update w
+            b = b - db * alpha # update b
         
         avg_loss = epoch_loss / len(y_train)
         losses.append(avg_loss)
